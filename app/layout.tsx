@@ -8,7 +8,11 @@ export const metadata = {
   description: 'Reserva del Ruiz - El Glamping de un millón de estrellas',
 }
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="es">
       <body className={`${inter.className} flex items-center justify-center min-h-screen`}>

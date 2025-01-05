@@ -50,12 +50,6 @@ export default function ReservationForm({ onSubmit, initialData }) {
 
     if (!isValid) return
 
-    // Save reservation to localStorage
-    const storedReservations = localStorage.getItem('reservations')
-    const reservations = storedReservations ? JSON.parse(storedReservations) : []
-    reservations.push(formData)
-    localStorage.setItem('reservations', JSON.stringify(reservations))
-
     onSubmit(formData)
   }
 
