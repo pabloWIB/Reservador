@@ -4,18 +4,18 @@ import { useRef } from 'react'
 import Image from 'next/image'
 import html2canvas from 'html2canvas'
 
+import Glamping from '/IMG/Glamping.jpeg'
+import logo from '/IMG/logo.jpg'
+
 export default function ReservationPreview({ formData, onBackToForm }) {
   const reservationCardRef = useRef(null)
 
   const saveAsImage = () => {
     if (reservationCardRef.current) {
-      const scale = 2;
-      const width = 1000; // Ancho fijo para PC y móvil
+      const scale = 2; // Increased scale for better quality
       html2canvas(reservationCardRef.current, { 
         backgroundColor: null, 
         scale: scale,
-        width: width,
-        windowWidth: width,
         logging: false,
         useCORS: true
       }).then(canvas => {
@@ -49,21 +49,21 @@ export default function ReservationPreview({ formData, onBackToForm }) {
   }
 
   return (
-    <div className="preview-container max-w-3xl mx-auto">
-      <div ref={reservationCardRef} className="bg-purple-900 rounded-lg overflow-hidden text-white relative">
-        <div className="absolute top-0 right-0 w-1/2 h-full opacity-10">
+    <div className="preview-container max-w-3xl mx-auto mt-20">
+      <div ref={reservationCardRef} className="bg-purple-900 overflow-hidden text-white relative">
+        <div className="absolute top-0 right-0  w-full h-screen opacity-10">
           <Image
-            src="/placeholder.svg?height=900&width=1600"
-            alt="Glamping"
-            layout="fill"
-            objectFit="cover"
+          src={Glamping} 
+          alt="Glamping"
+          layout="cover"
+          objectFit="cover"
           />
         </div>
 
         <div className="relative p-8 space-y-6">
           <div className="flex items-center space-x-4">
             <Image
-              src="/placeholder.svg?height=64&width=64"
+              src={logo}
               alt="Logo"
               width={64}
               height={64}
@@ -75,7 +75,7 @@ export default function ReservationPreview({ formData, onBackToForm }) {
             </div>
           </div>
 
-          <div className="bg-white/10 rounded-lg p-6 backdrop-blur-sm space-y-4">
+          <div className="bg-white/10 rounded-lg p-6 backdrop-blur-md space-y-4">
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div>
                 <p className="text-purple-200">Cliente</p>
@@ -87,28 +87,35 @@ export default function ReservationPreview({ formData, onBackToForm }) {
               </div>
             </div>
 
-            <div className="mb-4">
-              <p className="text-purple-200">Plan Seleccionado</p>
-              <p className="font-semibold">{formData.planType.split('|')[0]}</p>
-              <p className="text-sm text-purple-200">Valor por noche: ${(parseInt(formData.planType.split('|')[1]) || 0).toLocaleString()}</p>
-              <p className="text-sm text-purple-200">Noches: {calculateNights()}</p>
-              <p className="text-sm text-purple-200">Valor total del plan: ${((parseInt(formData.planType.split('|')[1]) || 0) * calculateNights()).toLocaleString()}</p>
-            </div>
+            <div className="grid grid-cols-2 gap-4 mb-4">
 
-            {formData.additional && (
+            {/*  */}
+
               <div className="mb-4">
-                <p className="text-purple-200">Servicios Adicionales</p>
-                <p className="font-semibold">{formData.additional}</p>
-                <p className="text-sm text-purple-200">Valor adicionales: ${(formData.additionalCost || 0).toLocaleString()}</p>
+                <p className="text-purple-200">Plan Seleccionado</p>
+                <p className="font-semibold">{formData.planType.split('|')[0]}</p>
+                <p className="text-sm text-purple-200">Valor por noche: ${(parseInt(formData.planType.split('|')[1]) || 0).toLocaleString()}</p>
+                <p className="text-sm text-purple-200">Noches: {calculateNights()}</p>
+                <p className="text-sm text-purple-200">Valor total del plan: ${((parseInt(formData.planType.split('|')[1]) || 0) * calculateNights()).toLocaleString()}</p>
               </div>
-            )}
 
-            <div className="mb-4">
-              <p className="text-purple-200">Estado del Pago</p>
-              <p className="font-semibold">Total a pagar: ${(formData.totalAmount || 0).toLocaleString()}</p>
-              <p className="font-semibold">Pagado: ${(formData.paidAmount || 0).toLocaleString()}</p>
-              <p className="font-semibold">Pendiente: ${(formData.remainingBalance || 0).toLocaleString()}</p>
+              {formData.additional && (
+                <div className="mb-4">
+                  <p className="text-purple-200">Servicios Adicionales</p>
+                  <p className="font-semibold">{formData.additional}</p>
+                  <p className="text-sm text-purple-200">Valor adicionales: ${(formData.additionalCost || 0).toLocaleString()}</p>
+                </div>
+              )}
+
+              <div className="mb-4">
+                <p className="text-purple-200">Estado del Pago</p>
+                <p className="font-semibold">Total a pagar: ${(formData.totalAmount || 0).toLocaleString()}</p>
+                <p className="font-semibold">Pagado: ${(formData.paidAmount || 0).toLocaleString()}</p>
+                <p className="font-semibold">Pendiente: ${(formData.remainingBalance || 0).toLocaleString()}</p>
+              </div>
             </div>
+
+            {/*  */}
 
             <div className="mb-4">
               <p className="text-purple-200">Fecha y Hora de Estancia</p>

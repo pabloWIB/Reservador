@@ -33,9 +33,6 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-12">
-      <h1 className="text-3xl md:text-4xl font-bold mb-8 mt-8 text-center text-purple-900">
-        Sistema de Reservas - Glamping
-      </h1>
       <div className="w-full max-w-2xl">
         {!showPreview ? (
           <ReservationForm onSubmit={handleSubmit} initialData={formData} />
